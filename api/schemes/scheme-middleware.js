@@ -1,11 +1,11 @@
-const db = require('../../data/db-config')
+const Schemes = require('./scheme-model')
 
 
 const checkSchemeId = (req, res, next) => {
-  db('schemes').where('scheme_id', req.params.id).first()
+  Schemes.findById(req.params.scheme_id)
     .then(scheme => {
       if(!scheme) {
-        res.status(404).json({message: `scheme with scheme_id ${req.params.id} not found`})
+        res.status(404).json({message: `scheme with scheme_id ${req.params.scheme_id} not found`})
       }
       else next()
     })
