@@ -68,12 +68,11 @@ async function add(scheme) {
   return newScheme
 }
 
-function addStep(scheme_id, step) {
-  /*
-    1E- This function adds a step to the scheme with the given `scheme_id`
-    and resolves to _all the steps_ belonging to the given `scheme_id`,
-    including the newly created one.
-  */
+async function addStep(scheme_id, step) {
+  await db('steps')
+    .insert({step_number: step.step_number, instructions: step.instructions, scheme_id: scheme_id})
+  const updatedScheme = await findSteps(scheme_id)
+  return updatedScheme
 }
 
 module.exports = {
