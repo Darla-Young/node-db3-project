@@ -38,7 +38,7 @@ async function findById(scheme_id) {
     default:
       return ({
         scheme_id: scheme_id,
-        scheme_name: arr.scheme_name,
+        scheme_name: arr[0].scheme_name,
         steps: [],
       })
   }
@@ -61,10 +61,11 @@ async function findSteps(scheme_id) {
   return ordered
 }
 
-function add(scheme) {
-  /*
-    1D- This function creates a new scheme and resolves to _the newly created scheme_.
-  */
+async function add(scheme) {
+  const id = await db('schemes')
+    .insert(scheme)
+  const newScheme = await findById(id[0])
+  return newScheme
 }
 
 function addStep(scheme_id, step) {

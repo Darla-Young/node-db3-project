@@ -15,7 +15,7 @@ const checkSchemeId = (req, res, next) => {
   // If `scheme_name` is missing, empty string or not a string
 const validateScheme = (req, res, next) => {
   const name = req.body.scheme_name
-  if (!name) res.status(400).json({message: "invalid scheme_name"})
+  if (!name || name.toString() !== name) res.status(400).json({message: "invalid scheme_name"})
   else next()
 }
 
